@@ -22,7 +22,7 @@ void setup()
   mySerial.begin(9600);
   Serial.begin(9600);
 
-  //******** Initialize sim808 module *************
+  //Initialize sim808 module
   while(!sim808.init())
   {
     Serial.print("Sim808 init error\r\n");
@@ -40,10 +40,10 @@ void setup()
 
 void loop()
 {
-  //*********** Detecting unread SMS ************************
+  //Detecting unread SMS
   messageIndex = sim808.isSMSunread();
 
-  //*********** At least, there is one UNREAD SMS ***********
+  //At least, there is one UNREAD SMS
   if (messageIndex > 0)
   { 
     Serial.print("messageIndex: ");
@@ -51,7 +51,7 @@ void loop()
 
     sim808.readSMS(messageIndex, message, MESSAGE_LENGTH, phone, datetime);
 
-    //***********In order not to full SIM Memory, is better to delete it**********
+    //In order not to full SIM Memory, is better to delete it
     sim808.deleteSMS(messageIndex);
     Serial.print("From number: ");
     Serial.println(phone);  
@@ -104,7 +104,7 @@ void loop()
     Serial.println(MESSAGE);
     Serial.println(phone);
     sim808.sendSMS(phone,MESSAGE);
-    //************* Turn off the GPS power ************
+    //Turn off the GPS power
     sim808.detachGPS();
 
   }
